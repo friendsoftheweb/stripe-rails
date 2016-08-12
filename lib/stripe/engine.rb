@@ -53,12 +53,6 @@ environment file directly.
       end
     end
 
-    initializer 'stripe.javascript_helper' do
-      ActiveSupport.on_load :action_controller do
-        helper Stripe::JavascriptHelper
-      end
-    end
-
     initializer 'stripe.plans_and_coupons' do |app|
       for configuration in %w(plans coupons)
         path = app.root.join("config/stripe/#{configuration}.rb")

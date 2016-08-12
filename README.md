@@ -21,26 +21,6 @@ gem 'stripe-rails'
 
 If you are going to be using [stripe.js][1] to securely collect credit card information
 on the client, then you will need to add the stripe javascript tags into your template.
-stripe-rails provides a helper to make this easy:
-
-```erb
-<%= stripe_javascript_tag %>
-```
-or, you can render it as a partial:
-
-```erb
-<%= render :partial => 'stripe/js' %>
-```
-In both cases, stripe-rails will choose a version of stripe.js appropriate for your
-development environment and automatically configure it to use
-your publishable API key. By default it uses `stripe-debug.js` for your `development`
-environment and `stripe.js` for everything else, but you can manually configure it
-per environment
-
-```ruby
-config.stripe.debug_js = true  # use stripe-debug.js
-config.stripe.debug_js = false # use stripe.js
-```
 
 ### Setup your API keys.
 
@@ -232,7 +212,7 @@ class InvoiceMailer < ActionMailer::Base
 end
 ```
 
-**Note:** `Stripe::Callbacks` won't get included until the including class has been loaded. This is usually not an issue in the production environment as eager loading is enabled by default (`config.eager_load = true`). You may run into an issue in your development environment where eager loading is disabled by default. 
+**Note:** `Stripe::Callbacks` won't get included until the including class has been loaded. This is usually not an issue in the production environment as eager loading is enabled by default (`config.eager_load = true`). You may run into an issue in your development environment where eager loading is disabled by default.
 
 If you don't wish to enable eager loading in development, you can configure the classes to be eager loaded like so
 
@@ -240,7 +220,7 @@ If you don't wish to enable eager loading in development, you can configure the 
 # in your application's config/environments/development.rb
 config.stripe.eager_load = 'account', 'module/some_class', 'etc'
 ```
-This will ensure that callbacks will get loaded in those configured classes if eager loading is disabled. 
+This will ensure that callbacks will get loaded in those configured classes if eager loading is disabled.
 
 The naming convention for the callback events is after__{callback_name}! where `callback_name`
 is name of the stripe event with all `.` characters substituted with underscores. So, for
